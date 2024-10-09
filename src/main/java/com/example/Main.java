@@ -6,6 +6,7 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 import com.example.dominio.Actor;
+import com.example.dominio.Pelicula;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Main {
@@ -43,6 +44,27 @@ public class Main {
 
             System.out.println(mapper.readTree(response.body()).get("name").asText());
     
+            System.out.println("Status Code: " + response.statusCode());
+            System.out.println("Response Body: " + response.body());
+            System.out.println("Actor: " + actor.toString());
+    
+        }catch(Exception e){
+            System.out.println("Error: "+e.getMessage());
+        }
+
+
+        request = HttpRequest.newBuilder()
+            .uri(URI.create("http://localhost:8080/peliculas/1"))
+            .build();
+
+        try{
+
+            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+            
+            Pelicula actor = mapper.readValue(response.body(), Pelicula.class);
+
+            
             System.out.println("Status Code: " + response.statusCode());
             System.out.println("Response Body: " + response.body());
             System.out.println("Actor: " + actor.toString());

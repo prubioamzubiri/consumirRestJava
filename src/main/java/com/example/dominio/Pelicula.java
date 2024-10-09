@@ -24,5 +24,7 @@ public class Pelicula {
 
     private List<Actor> actores;
 
+    private List<Premio> premios;
+
     
 }
